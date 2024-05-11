@@ -1,4 +1,5 @@
 conda create -n prompt python=3.7
+conda init
 conda activate prompt
 
 pip install -q tensorflow
