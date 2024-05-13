@@ -1,4 +1,8 @@
 # Visual Prompt Tuning 
+VPT research for Graduation Thesis and so on
+Forked from VPT repository.
+
+------
 
 https://arxiv.org/abs/2203.12119 
 
