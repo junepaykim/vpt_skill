@@ -72,7 +72,7 @@ _C.MODEL.PROMPT.FORWARD_DEEP_NOEXPAND = False  # if true, will not expand input 
     # imgprompt_pool: pool everything but the cls token
 _C.MODEL.PROMPT.VIT_POOL_TYPE = "original"
 _C.MODEL.PROMPT.DROPOUT = 0.0
-_C.MODEL.PROMPT.SAVE_FOR_EACH_EPOCH = False
+_C.MODEL.PROMPT.SAVE_FOR_EACH_EPOCH = True
 # ----------------------------------------------------------------------
 # adapter options
 # ----------------------------------------------------------------------

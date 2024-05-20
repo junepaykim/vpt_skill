@@ -7,9 +7,9 @@ output_dir=/root/nlp/vpt_skill/output
 # vtab-structured: dmlab
 # base_lr = 1.0
 # lr = base_lr / 256 * cfg.DATA.BATCH_SIZE
-for seed in "43"; do
+for seed in "44"; do
     python train.py \
-        --config-file configs/prompt/cub.yaml \
+        --config-file configs/skill/cub_binary.yaml \
         DATA.BATCH_SIZE "32" \
         MODEL.PROMPT.NUM_TOKENS "50" \
         MODEL.PROMPT.DEEP "False" \
