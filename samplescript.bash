@@ -21,7 +21,7 @@ for seed in "44"; do
         MODEL.MODEL_ROOT "${model_root}" \
         DATA.DATAPATH "${data_path}" \
         OUTPUT_DIR "${output_dir}/seed${seed}" \
-        MODEL.SAVE_CKPT "True"        
+        MODEL.SAVE_CKPT "False"        
 done
 
 # # vtab-natural: sun397

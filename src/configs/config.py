@@ -115,6 +115,7 @@ _C.DATA = CfgNode()
 _C.DATA.NAME = ""
 _C.DATA.DATAPATH = ""
 _C.DATA.FEATURE = ""  # e.g. inat2021_supervised
+_C.DATA.ATTRIBUTE = ""  # attribute for binary classification
 
 _C.DATA.PERCENTAGE = 1.0
 _C.DATA.NUMBER_CLASSES = -1

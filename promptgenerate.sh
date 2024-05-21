@@ -16,7 +16,7 @@ model_root=/workspace/model
 data_path=/workspace/CUB_200_2011
 output_dir=/root/nlp/vpt_skill/output
 
-for seed in "44"; do
+for seed in "50"; do
     python train.py \
         --config-file configs/skill/cub_binary.yaml \
         DATA.BATCH_SIZE "32" \
@@ -25,12 +25,12 @@ for seed in "44"; do
         MODEL.PROMPT.DROPOUT "0.1" \
         DATA.FEATURE "sup_vitb16_imagenet21k" \
         DATA.NAME "CUB" \
-        DATA.NUMBER_CLASSES "200" \
+        DATA.ATTRIBUTE "small_(5_-_9_in)" \
         SEED ${seed} \
         MODEL.MODEL_ROOT "${model_root}" \
         DATA.DATAPATH "${data_path}" \
         OUTPUT_DIR "${output_dir}/seed${seed}" \
-        MODEL.SAVE_CKPT "True"
+        MODEL.SAVE_CKPT "False"
 done
 ' C-m
 

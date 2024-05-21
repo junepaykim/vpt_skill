@@ -3,8 +3,9 @@ RUN_N_TIMES: 1
 DATA:
   NAME: "CUB"
   DATAPATH: "/workspace/CUB_200_2011"
-  NUMBER_CLASSES: 200
+  NUMBER_CLASSES: 2
   MULTILABEL: False
+  ATTRIBUTE : 'small_(5_-_9_in)'
 MODEL:
   TYPE: "vit"
 SOLVER:

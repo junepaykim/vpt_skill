@@ -3,11 +3,14 @@
 """JSON dataset: support CUB, NABrids, Flower, Dogs and Cars"""
 
 import os
+from typing import Dict
 import torch
 import torch.utils.data
 import torchvision as tv
 import numpy as np
 from collections import Counter
+import random
+import json
 
 from ..transforms import get_transforms
 from ...utils import logging
@@ -31,8 +34,10 @@ class JSONDataset(torch.utils.data.Dataset):
         self.name = cfg.DATA.NAME
         self.data_dir = cfg.DATA.DATAPATH
         self.data_percentage = cfg.DATA.PERCENTAGE
+        self.attribute = cfg.DATA.ATTRIBUTE
         self._construct_imdb(cfg)
         self.transform = get_transforms(split, cfg.DATA.CROPSIZE)
+        self.seed = cfg.SEED
 
     def get_anno(self):
         anno_path = os.path.join(self.data_dir, "{}.json".format(self._split))
@@ -124,13 +129,54 @@ class JSONDataset(torch.utils.data.Dataset):
 
 
 class CUB200Dataset(JSONDataset):
-    """CUB_200 dataset."""
+    """
+    CUB200 Dataset configured to load annotations based on specific attributes.
+    """
 
     def __init__(self, cfg, split):
         super(CUB200Dataset, self).__init__(cfg, split)
+        
 
     def get_imagedir(self):
         return os.path.join(self.data_dir, "images")
+    
+    def get_anno(self) -> Dict[str, int]:
+        """
+        Retrieves and processes annotation data from a JSON file for balanced attribute representation.
+
+        Returns:
+            Dict[str, int]: A dictionary where keys are image file paths and values are attribute presence indicators
+            (0 or 1).
+        """
+
+        anno_path = os.path.join(self.data_dir, f"{self.attribute}.json")
+        assert os.path.exists(anno_path), f"{anno_path} file not found"
+        
+        with open(anno_path, 'r') as file:
+            annotations = json.load(file)
+            
+        items_0 = [(img, attr) for img, attr in annotations.items() if int(attr) == 0]
+        items_1 = [(img, attr) for img, attr in annotations.items() if int(attr) == 1]
+
+        min_count = min(len(items_0), len(items_1))
+        random.shuffle(items_0)
+        random.shuffle(items_1)
+        balanced_items = items_0[:min_count] + items_1[:min_count]
+        random.shuffle(balanced_items)
+
+        train_split = int(0.7 * len(balanced_items))
+        val_split = int(0.2 * len(balanced_items))
+        test_split = len(balanced_items) - train_split - val_split
+        
+        if self._split == 'train':
+            selected_data = dict(balanced_items[:train_split])
+        elif self._split == 'val':
+            selected_data = dict(balanced_items[train_split:train_split + val_split])
+        elif self._split == 'test':
+            selected_data = dict(balanced_items[train_split + val_split:])
+        
+        return selected_data
+
 
 
 class CarsDataset(JSONDataset):
