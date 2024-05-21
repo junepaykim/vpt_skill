@@ -1,6 +1,9 @@
 # Visual Prompt Tuning 
 VPT research for Graduation Thesis and so on
-Forked from VPT repository.
+
+This repository folked from the official PyTorch implementation for Visual Prompt Tuning.
+
+[VPT Official repo](https://github.com/kmnp/vpt).
 
 ------
 
@@ -8,7 +11,7 @@ https://arxiv.org/abs/2203.12119
 
 ------
 
-This repository contains the official PyTorch implementation for Visual Prompt Tuning.
+
 
 ![vpt_teaser](https://github.com/KMnP/vpt/blob/main/imgs/teaser.png)
 
