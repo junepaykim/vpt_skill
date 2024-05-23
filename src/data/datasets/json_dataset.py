@@ -149,7 +149,7 @@ class CUB200Dataset(JSONDataset):
             (0 or 1).
         """
 
-        anno_path = os.path.join(self.data_dir, f"{self.attribute}.json")
+        anno_path = os.path.join(self.data_dir, 'binary', f"{self.attribute}.json")
         assert os.path.exists(anno_path), f"{anno_path} file not found"
         
         with open(anno_path, 'r') as file:

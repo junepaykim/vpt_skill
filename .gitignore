@@ -1,5 +1,12 @@
 #Custom
 output/
+promptgenerate0.sh
+promptgenerate1.sh
+promptgenerate2.sh
+prompttrain0.sh
+prompttrain1.sh
+prompttrain2.sh
+samplescript2.sh
 
 
 #Below is default gitignore file

@@ -36,17 +36,15 @@ def setup(args):
     cfg.DIST_INIT_PATH = "tcp://{}:12399".format(os.environ["SLURMD_NODENAME"])
 
     # setup output dir
-    # output_dir / data_name / feature_name / lr_wd / run1
     output_dir = cfg.OUTPUT_DIR
     lr = cfg.SOLVER.BASE_LR
     wd = cfg.SOLVER.WEIGHT_DECAY
-    output_folder = os.path.join(
-        cfg.DATA.NAME, cfg.DATA.FEATURE, f"lr{lr}_wd{wd}")
+    output_parameter = os.path.join(f"lr{lr}")
 
     # train cfg.RUN_N_TIMES times
     count = 1
     while count <= cfg.RUN_N_TIMES:
-        output_path = os.path.join(output_dir, output_folder, f"run{count}")
+        output_path = os.path.join(output_dir, output_parameter, f"run{count}")
         # pause for a random time, so concurrent process with same setting won't interfere with each other. # noqa
         sleep(randint(3, 30))
         if not PathManager.exists(output_path):
@@ -57,7 +55,7 @@ def setup(args):
             count += 1
     if count > cfg.RUN_N_TIMES:
         raise ValueError(
-            f"Already run {cfg.RUN_N_TIMES} times for {output_folder}, no need to run more")
+            f"Already run {cfg.RUN_N_TIMES} times for {output_parameter}, no need to run more")
 
     cfg.freeze()
     return cfg
@@ -129,5 +127,4 @@ def main(args):
 
 if __name__ == '__main__':
     args = default_argument_parser().parse_args()
-    print(args)
     main(args)
