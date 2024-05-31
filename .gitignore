@@ -7,7 +7,7 @@ prompttrain0.sh
 prompttrain1.sh
 prompttrain2.sh
 samplescript2.sh
-
+*.pth
 
 #Below is default gitignore file
 GIT_TOKENS.md

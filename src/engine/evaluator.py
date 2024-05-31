@@ -50,9 +50,14 @@ class Evaluator():
             targets: np.ndarray for multilabel, list of integers for single label
             test_labels:  map test image ids to a list of class labels
         """
+        # if targets.size == 0 and not targets :
+        #     raise ValueError("When evaluating classification, need at least to give targets")
+
         if not targets:
-            raise ValueError(
+            if targets.size == 0 :
+                raise ValueError(
                 "When evaluating classification, need at least give targets")
+
 
         if multilabel:
             self._eval_multilabel(probs, targets, test_data)
